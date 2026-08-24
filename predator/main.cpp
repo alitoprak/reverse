@@ -71,7 +71,7 @@ int main() {
     if (result != nullptr) {
         std::cout << "Pattern found at: " << result << '\n';
 
-        HANDLE hThread = CreateRemoteThread(
+        HANDLE threadHandle = CreateRemoteThread(
             processHandle,
             nullptr,
             0,
@@ -81,11 +81,11 @@ int main() {
             nullptr
         );
 
-        if (hThread != nullptr) {
+        if (threadHandle != nullptr) {
             std::cout << "Successfully executed the function in the target process!\n";
 
-            WaitForSingleObject(hThread, INFINITE);
-            CloseHandle(hThread);
+            WaitForSingleObject(threadHandle, INFINITE);
+            CloseHandle(threadHandle);
         } else {
             std::cout << "Failed to create remote thread. Error: " << GetLastError() << '\n';
         }
